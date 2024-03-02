@@ -27,6 +27,7 @@
 
         <section class="section">
             <div class="container content">
+                <h1 class="problem-number">Problem #{{ problemIndex }}</h1>
                 <p>Decode the following message which is a quote by {{ author }}.</p>
 
                 <p v-if="patristocrat">Hint: The first word is {{ original.split(" ")[0]  }}.</p>
@@ -77,7 +78,12 @@
                 </button>
                 <div style="height: 0.3rem;"></div>
                 <button title="Patristocrat" class="button" @click="togglePatristocrat()">Toggle Patristocrat</button>
+                <div style="height: 0.3rem;"></div>
+                <button class="button new-problem-button" @click="newRandomProblem">New Problem</button>
+                <button class="button custom-index-button" @click="promptForCustomIndex">Custom Problem #</button>
             </div>
+
+
         </section>
 
     </div>

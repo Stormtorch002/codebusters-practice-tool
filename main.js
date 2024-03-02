@@ -48,6 +48,7 @@ const app = createApp({
             decode: Array(26).fill(-1),
             difficulty: getDefaultDifficulty(),
             patristocrat: false,
+            problemIndex: 0
         }
     },
     computed: {
@@ -110,10 +111,17 @@ const app = createApp({
             this.$refs.inputs[textIndex].focus();
         },
         focusNext(textIndex) {
+            const originalTextIndex = textIndex;
             do {
                 textIndex++;
+                if (textIndex >= this.$refs.inputs.length) {
+                    textIndex = originalTextIndex; 
+                    break;
+                }
             } while (!this.decodable(this.ciphertext[textIndex]))
-            this.$refs.inputs[textIndex].focus();
+            if (this.$refs.inputs[textIndex]) {
+                this.$refs.inputs[textIndex].focus();
+            }
         },
         isDupe(x) {
             let already = false;
@@ -140,13 +148,6 @@ const app = createApp({
             if (this.decode[letters[x]] > -1) return alphabet[this.decode[letters[x]]];
             else return "";
         },
-        newProblem() {
-            const quote = choose(QUOTES[this.difficulty]);
-            this.original = quote.text.toUpperCase();
-            this.author = quote.author;
-            this.encode = this.randomMap();
-            this.decode = Array(26).fill(-1);
-        },
         changeDifficulty(difficulty) {
             setDefaultDifficulty(difficulty);
             this.difficulty = difficulty;
@@ -161,9 +162,31 @@ const app = createApp({
         },
         zip(...rows) {
             return [...rows[0]].map((_, c) => rows.map(row => row[c]));
-        }
+        },
+        newRandomProblem() {
+            const randomIndex = Math.floor(Math.random() * QUOTES[this.difficulty].length);
+            this.setProblemByIndex(randomIndex);
+        },
+        promptForCustomIndex() {
+            const index = prompt("Enter the problem # you want to solve:");
+            if (index !== null && !isNaN(index)) {
+                this.setProblemByIndex(parseInt(index));
+            }
+        },
+        setProblemByIndex(index) {
+            if (index >= 0 && index < QUOTES[this.difficulty].length) {
+                const quote = QUOTES[this.difficulty][index];
+                this.original = quote.text.toUpperCase();
+                this.author = quote.author;
+                this.encode = this.randomMap();
+                this.decode = Array(26).fill(-1);
+                this.problemIndex = index; // Update the displayed problem number
+            } else {
+                alert("Invalid index.");
+            }
+        },
     },
     created() {
-        this.newProblem();
+        this.newRandomProblem();
     }
 }).mount("#main");

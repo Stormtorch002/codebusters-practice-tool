@@ -73,3 +73,22 @@
     border-radius: 0;
     caret-color: transparent;
 }
+
+/* Style for the h1 tag displaying the problem number */
+.problem-number {
+    font-family: inherit; 
+    font-weight: bold;
+    font-size: xx-large; 
+    color: #333;
+}
+
+.new-problem-button {
+    background-color: #2ECC71;
+    margin-right: 10px;
+    border-width: 0;
+}
+
+.custom-index-button {
+    background-color: cornflowerblue;
+    border-width: 0;
+}
