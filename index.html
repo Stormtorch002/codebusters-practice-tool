@@ -27,7 +27,7 @@
 
         <section class="section">
             <div class="container content">
-                <h1 class="problem-number">Problem #{{ problemIndex }}</h1>
+                <h1 class="problem-number">Problem #{{ ['E', 'M', 'H'][difficulty] }}{{ problemIndex }}</h1>
                 <p>Decode the following message which is a quote by {{ author }}.</p>
 
                 <p v-if="patristocrat">Hint: The first word is {{ original.split(" ")[0]  }}.</p>
@@ -65,22 +65,35 @@
                         </tr>
                     </tbody>
                 </table>
-
+                <hr>
+                <button class="button new-problem-button" @click="newProblem">New Problem</button>
+                <button class="button custom-index-button" @click="promptForCustomIndex">Custom Problem #</button>
+                <h2>Difficulty</h2>
                 <!--<button class="button" @click="newProblem">New Problem</button>-->
-                <button title="New easy problem" class="button" @click="changeDifficulty(0)">
+                <button
+                    title="New easy problem"
+                    class="button"
+                    :class="{ 'button-active': difficulty === 0 }"
+                    @click="changeDifficulty(0)">
                     Easy
                 </button>
-                <button title="New medium problem" class="button" @click="changeDifficulty(1)">
+                <button
+                    title="New medium problem"
+                    class="button"
+                    :class="{ 'button-active': difficulty === 1 }"
+                    @click="changeDifficulty(1)">
                     Medium
                 </button>
-                <button title="New hard problem" class="button" @click="changeDifficulty(2)">
+                <button
+                    title="New hard problem"
+                    class="button"
+                    :class="{ 'button-active': difficulty === 2 }"
+                    @click="changeDifficulty(2)">
                     Hard
                 </button>
                 <div style="height: 0.3rem;"></div>
                 <button title="Patristocrat" class="button" @click="togglePatristocrat()">Toggle Patristocrat</button>
                 <div style="height: 0.3rem;"></div>
-                <button class="button new-problem-button" @click="newRandomProblem">New Problem</button>
-                <button class="button custom-index-button" @click="promptForCustomIndex">Custom Problem #</button>
             </div>
 
 

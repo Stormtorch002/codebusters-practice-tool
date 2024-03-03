@@ -74,14 +74,6 @@
     caret-color: transparent;
 }
 
-/* Style for the h1 tag displaying the problem number */
-.problem-number {
-    font-family: inherit; 
-    font-weight: bold;
-    font-size: xx-large; 
-    color: #333;
-}
-
 .new-problem-button {
     background-color: #2ECC71;
     margin-right: 10px;
@@ -91,4 +83,8 @@
 .custom-index-button {
     background-color: cornflowerblue;
     border-width: 0;
+}
+
+.button-active {
+    background-color: #A0A0A0; 
 }
